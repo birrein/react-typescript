@@ -1,16 +1,28 @@
 import React from 'react';
+import { List, Button, Icon } from 'semantic-ui-react';
 
 interface TodoListProps {
   items: { id: string; text: string }[];
+  onDeleteTodo: (id: string) => void;
 }
 
-const TodoList: React.FC<TodoListProps> = ({ items }) => {
+const TodoList: React.FC<TodoListProps> = ({ items, onDeleteTodo }) => {
   return (
-    <ul>
+    <List>
       {items.map((todo) => (
-        <li key={todo.id}>{todo.text}</li>
+        <List.Item key={todo.id}>
+          <Button
+            onClick={onDeleteTodo.bind(null, todo.id)}
+            circular
+            size="mini"
+            icon
+          >
+            <Icon color="red" name="cancel" />
+          </Button>
+          {todo.text}
+        </List.Item>
       ))}
-    </ul>
+    </List>
   );
 };
 
